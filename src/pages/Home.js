@@ -1,4 +1,4 @@
-import React , { useState }from 'react';
+import React , { useState, useEffect }from 'react';
 import { 
     View,
     Text,
@@ -6,7 +6,7 @@ import {
     SafeAreaView, 
     TextInput,
     Platform,
-    FlatList
+    FlatList,
 
 } from 'react-native'
 import { Button } from '../components/Button';
@@ -17,19 +17,38 @@ export function Home(){
 
     const [ newSkill, setNewSkill ] = useState('');
     const [ mySkills, setMySkills] = useState([]);
-
+    const [ greeting, setGreeting] = useState('');
+    
     function handleAddNewSkill(){
         setMySkills(oldState => [...oldState, newSkill]);
     }
 
+useEffect(
+    () => {
+        const currentHour = new Date().getHours();
+        console.log(currentHour)
 
+        if(currentHour < 12) {
+            setGreeting("Good morning !");
+        } else if(currentHour >= 12 && currentHour < 18) {
+            setGreeting("Good Afternoon !");
+        } else {
+            setGreeting("Good Night !")
+        }
+
+    }, []
+)
   return (
 
     <SafeAreaView style={styles.container}>
-
+        
         <Text style={styles.title}>
             Welcome, Bruno
-            </Text>
+        </Text>
+
+        <Text style={styles.greeting}>
+            {greeting}
+        </Text>
 
         <TextInput 
         style={styles.input}
@@ -58,16 +77,17 @@ export function Home(){
 const styles = StyleSheet.create({
     container:{
         flex:1,
+        backgroundColor: '#121015',
+        paddingHorizontal:30,
+        paddingVertical:70,
       
-      backgroundColor: '#121015',
-      paddingHorizontal:30,
-      paddingVertical:70
 
     },
     title:{
         color:'#fff',
         fontSize:24,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        marginHorizontal:20
     },
    
     input:{
@@ -77,6 +97,11 @@ const styles = StyleSheet.create({
         padding: Platform.OS === 'ios' ? 15 : 0,
         marginTop:30,
         borderRadius:7,
+        marginHorizontal:20
     },
-   
+   greeting:{
+       color: '#fff',
+       marginHorizontal:20,
+       marginVertical:20
+   }
 })

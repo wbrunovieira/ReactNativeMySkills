@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         borderRadius:50,
         fontWeight:'bold',
         alignItems:'center',
-        marginVertical:10
+        marginVertical:10,
+        marginHorizontal:20
          
     },
     textskill:{
